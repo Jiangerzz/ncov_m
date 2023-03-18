@@ -1,5 +1,5 @@
 <template>
-    <div ref="echarts_box" class="content"></div>
+    <div id="nov" ref="echarts_box" ></div>
 </template>
 
 <script>
@@ -12,7 +12,7 @@ const option = {
     text: "中国疫情地图",
     link: 'https://www.baidu.com',
     subtext: "Jiang",
-    sublink: "https://www.baidu.com"
+    sublink: "https://jiangerzz-github-io.pages.dev/"
   },
   series: [{
     name: '确诊人数',
@@ -39,7 +39,6 @@ const option = {
     },
     data: []
   }],
-  // {name: xxx, value: xxx}
   visualMap: [{
     type: 'piecewise',
     show: true,
@@ -50,8 +49,7 @@ const option = {
       { min: 10, max: 99 },
       { min: 1, max: 9 }
     ],
-    // align: 'right'
-    // showLabel: false
+
     inRange: {
       symbol: 'rect',
       color: [
@@ -63,17 +61,6 @@ const option = {
   }],
   tooltip: {
     trigger: 'item'
-  },
-  toolbox: {
-    show: true,
-    orient: 'vertical',
-    left: 'right',
-    top: 'center',
-    feature: {
-      dataView: { readOnly: false },
-      restore: {},
-      saveAsImage: {}
-    }
   }
 }
 
@@ -83,14 +70,13 @@ export default {
     getData () {
       jsonp('https://interface.sina.cn/news/wap/fymap2020_data.d.json?_=1580892522427', {}, (err, data) => {
         if (!err) {
-          // eslint-disable-next-line no-console
           //console.log(data)
           let list = data.data.list.map(item => (
-              
+
               {
                 name: item.name,
                 value: item.value,
-                susNum: item.susNum
+                // susNum: item.susNum
               }))
           option.series[0].data = list
           this.mycharts.setOption(option)
@@ -109,9 +95,10 @@ export default {
 </script>
 
 <style scoped>
-.content {
-  width: 1500px;
-  height: 638px;
-  background-color: rgba(0, 0, 0, 0.3);
+
+#nov {
+  width: 60%;
+  height: 78vh;
 }
 </style>
+
