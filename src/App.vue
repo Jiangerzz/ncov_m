@@ -11,16 +11,16 @@
       <!--侧边栏-->
       <div style="width: 200px; min-height: calc(82vh - 4px); overflow: hidden; margin-right: 2px; background-color: white">
         <el-menu :default-active="$route.path" router class="el-menu-demo">
-          <el-menu-item index="/home">
+          <el-menu-item index="">
             <i class="el-icon-eleme"></i>
             <span>首页</span>
           </el-menu-item>
-          <el-submenu>
+          <el-submenu index="">
             <template slot="title">
               <i class="el-icon-s-data"></i>
               <span>疫情数据可视化</span>
             </template>
-            <el-menu-item index="/echarts">国内疫情地区</el-menu-item>
+            <el-menu-item index="/ncovdt">国内疫情地区</el-menu-item>
           </el-submenu>
           <el-menu-item index="3">
             <i class="el-icon-user"></i>

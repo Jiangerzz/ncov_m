@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import ECharts from '../views/ECharts_ncov'
-import Home from '../views/HomeView'
+import ECharts from '../components/ECharts_ncovmap'
+import Home from '../views/NcovData'
 
 Vue.use(VueRouter)
 
@@ -12,8 +12,8 @@ const routes = [
     component: ECharts
   },
   {
-    path: '/home',
-    name: 'home',
+    path: '/ncovdt',
+    name: 'NcovData',
     component: Home
   }
 ]
