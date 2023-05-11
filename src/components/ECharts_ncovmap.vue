@@ -10,7 +10,7 @@ import jsonp from 'jsonp'
 const option = {
   title: {
     text: "中国疫情地图",
-    link: 'https://www.baidu.com',
+    link: 'https://news.sina.cn/zt_d/yiqing0121',
     subtext: "Jiang",
     sublink: "https://jiangerzz-github-io.pages.dev/"
   },

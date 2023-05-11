@@ -9,7 +9,8 @@ import jsonp from "jsonp";
 
 let option = {
   title: {
-    text: '全国疫情趋势图'
+    text: '全国疫情趋势图',
+    link: 'https://news.sina.cn/zt_d/yiqing0121',
   },
   xAxis: {
     type: 'category',
@@ -18,7 +19,8 @@ let option = {
   },
   legend: {
     data: ['确诊','死亡','治愈'],
-    top: "0%"
+    top: "0%",
+    right: "10%"
   },
   tooltip: {
     trigger: 'item',
@@ -51,7 +53,7 @@ let option = {
       type: 'line',
       smooth: true,
       itemStyle: {
-        color: '#000000'
+        color: '#000000'  
       }
     }
   ]

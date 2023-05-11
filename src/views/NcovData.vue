@@ -57,7 +57,7 @@ export default {
     getData () {
       jsonp('https://interface.sina.cn/news/wap/fymap2020_data.d.json', {}, (err, data) => {
         if (!err) {
-          console.log(data)
+          // console.log(data)
           this.caseNumData.modifyTime = data.data.times
           this.caseNumData.locIncrNum = "\u5f85\u516c\u5e03"
           this.caseNumData.curetotal = data.data.curetotal
