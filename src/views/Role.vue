@@ -26,7 +26,7 @@
             <el-button type="info" @click="selectMenu(scope.row)">分配菜单 <i class="el-icon-menu"></i></el-button>
             <el-popconfirm title="您确定删除吗？" @confirm="del(scope.row.id)">
               <template #reference>
-                <el-button type="danger">删除</el-button>
+                <el-button type="danger" style="margin-left: 5px">删除</el-button>
               </template>
             </el-popconfirm>
           </template>

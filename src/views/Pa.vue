@@ -145,6 +145,7 @@ export default {
         }else {
           this.$message.error(res.msg)
         }
+        this.query()
       })
       this.dialogFormVisible = false
       this.load()

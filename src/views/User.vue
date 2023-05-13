@@ -15,7 +15,13 @@
       </el-table-column>
       <el-table-column prop="username" label="账号" width="240">
       </el-table-column>
-      <el-table-column prop="password" label="密码" width="240">
+      <el-table-column label="密码" width="260" align="center">
+        <template slot-scope="{ row }">
+          <span v-if="row.showPassword">{{ row.password }}</span>
+          <span v-else>{{ hidePassword(row.password) }}</span>
+          <i class="el-icon-view show-password-icon" v-if="!row.showPassword" @click="row.showPassword=true"></i>
+          <i class="el-icon-loading" v-else-if="row.showPassword" @click="row.showPassword=false"></i>
+        </template>
       </el-table-column>
       <el-table-column label="角色" width="240">
         <template slot-scope="scope">
@@ -57,7 +63,6 @@
         </el-form-item>
         <el-form-item label="角色">
           <el-select v-model="form.roleId" placeholder="请选择">
-              <el-option label="管理员" value="1"></el-option>
             <el-option label="学生" value="2"></el-option>
             <el-option label="教职工" value="3"></el-option>
           </el-select>
@@ -79,10 +84,9 @@
         </el-form-item>
         <el-form-item label="角色">
           <el-select v-model="form.roleId" placeholder="请选择">
-<!--            <el-option label="管理员" value="1"></el-option>-->
-<!--            <el-option label="学生" value="2"></el-option>-->
-<!--            <el-option label="教职工" value="3"></el-option>-->
-            <el-option v-for="item in roleItem" :key="item.name" :label="item.name" :value="item.flag"></el-option>
+            <el-option label="学生" value="2"></el-option>
+            <el-option label="教职工" value="3"></el-option>
+<!--            <el-option v-for="item in roleItem" :key="item.name" :label="item.name" :value="item.flag"></el-option>-->
           </el-select>
         </el-form-item>
       </el-form>
@@ -215,7 +219,9 @@ export default {
       this.params.pageNum = pageNum
       this.load()
     },
-    
+    hidePassword(password) {
+      return "*".repeat(10);
+    }
   }
 }
 

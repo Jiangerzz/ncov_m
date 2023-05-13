@@ -8,7 +8,7 @@
   <div class="one" v-show="index===1 && isShow">
     <el-row class="map">
       <el-col>
-        <div id="chart" style="height:550px;"></div>
+        <div id="chart" ref="echarts_box" style="height:550px;"></div>
       </el-col>
     </el-row>
   </div>
@@ -31,7 +31,35 @@
 <script>
 
 import * as echarts from 'echarts'
-
+import jsonp from "jsonp";
+const option = {
+  title: {
+    text: '世界疫情数据可视化',
+  },
+  tooltip: {
+    trigger: 'item',
+  },
+  visualMap: {
+    min: 0,
+    max: 1000000,
+    left: 'left',
+    top: 'bottom',
+    text: ['高', '低'],
+    calculable: true,
+  },
+  series: [
+    {
+      name: '确诊人数',
+      type: 'map',
+      map: 'world',
+      roam: true,
+      label: {
+        show: true,
+      },
+      data: [],
+    },
+  ],
+}
 
 export default {
   name: "NcovWorld",
@@ -41,7 +69,9 @@ export default {
       // 控制切换按钮后按钮改变样式
       index: 1,
       // 控制点击按钮后子组件显示，再次点击隐藏
-      isShow: true
+      isShow: true,
+      dataList: [],
+      seriesData: []
     }
   },
   methods: {
@@ -50,60 +80,31 @@ export default {
       this.index === value ? this.isShow = !this.isShow : this.isShow = true
       this.index = value
     },
+
+    getData () {
+      jsonp('https://disease.sh/v3/covid-19/countries', {}, (err, data) => {
+        if (!err) {
+          console.log(JSON.parse(data))
+          let list = data.data.list.map(item => (
+
+              {
+                name: item.name,
+                value: item.value,
+                // susNum: item.susNum
+              }))
+          option.series[0].data = list
+          this.mycharts.setOption(option)
+        }
+      })
+    }
     
-    async fetchData() {
-      const response = await fetch('https://api.covid19api.com/summary')
-      const data = await response.json()
-      // console.log(data)
-      const seriesData = []
-      for (const country of data.Countries) {
-        seriesData.push({
-          name: country.Country,
-          value: country.TotalConfirmed,
-        })
-        this.tableData.push({
-          country: country.Country,
-          confirmed: country.TotalConfirmed,
-          dead: country.TotalDeaths,
-        })
-      }
-      this.drawChart(seriesData)
-    },
-    drawChart(data) {
-      const chart = echarts.init(document.getElementById('chart'))
-      const option = {
-        title: {
-          text: '世界疫情数据可视化',
-        },
-        tooltip: {
-          trigger: 'item',
-        },
-        visualMap: {
-          min: 0,
-          max: 1000000,
-          left: 'left',
-          top: 'bottom',
-          text: ['高', '低'],
-          calculable: true,
-        },
-        series: [
-          {
-            name: '确诊人数',
-            type: 'map',
-            map: 'world',
-            roam: true,
-            label: {
-              show: true,
-            },
-            data: data,
-          },
-        ],
-      }
-      chart.setOption(option)
-    },
   },
   mounted() {
-    this.fetchData()
+    
+    this.getData()
+    this.mycharts = echarts.init(this.$refs.echarts_box)
+    this.mycharts.setOption(option)
+    
   }
 }
 </script>

@@ -36,7 +36,7 @@ export const resetRouter = () => {
   })
 }
 
-// 注意：刷新页面会导致页面路由重置
+//注意：刷新页面会导致页面路由重置
 export const setRoutes = () => {
   const storeMenus = JSON.stringify(localCache.get("menus"))
   if (storeMenus) {
@@ -50,19 +50,29 @@ export const setRoutes = () => {
           { path: '/tcInfo', name: '教职工个人信息', component: () => import('../views/TcInfo.vue')}
         ] }
       const menus = JSON.parse(storeMenus)
-      menus.forEach(item => {
-        if (item.path) {  // 当且仅当path不为空的时候才去设置路由
-          let itemMenu = { path: item.path.replace("/", ""), name: item.name, component: () => import('../views/' + item.pagePath + '.vue')}
-          manageRoute.children.push(itemMenu)
-        } else if(item.children.length) {
-          item.children.forEach(item => {
-            if (item.path) {
-              let itemMenu = { path: item.path.replace("/", ""), name: item.name, component: () => import('../views/' + item.pagePath + '.vue')}
-              manageRoute.children.push(itemMenu)
+      if(menus != null) {
+        menus.forEach(item => {
+          if (item.path) {  // 当且仅当path不为空的时候才去设置路由
+            let itemMenu = {
+              path: item.path.replace("/", ""),
+              name: item.name,
+              component: () => import('../views/' + item.pagePath + '.vue')
             }
-          })
-        }
-      })
+            manageRoute.children.push(itemMenu)
+          } else if (item.children.length) {
+            item.children.forEach(item => {
+              if (item.path) {
+                let itemMenu = {
+                  path: item.path.replace("/", ""),
+                  name: item.name,
+                  component: () => import('../views/' + item.pagePath + '.vue')
+                }
+                manageRoute.children.push(itemMenu)
+              }
+            })
+          }
+        })
+      }
       // 动态添加到现在的路由对象中去
       router.addRoute(manageRoute)
     }
@@ -82,7 +92,7 @@ router.beforeEach((to,from,next) => {
   
   if(!to.matched.length) { //未找到路由
     const storeMenus = JSON.stringify(localCache.get("menus"))
-    if(storeMenus) {
+    if(!storeMenus == 'null') {
       next("/404")
     } else {
       next("/login")

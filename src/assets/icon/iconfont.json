@@ -1,0 +1,23 @@
+{
+  "id": "4062900",
+  "name": "element_icon",
+  "font_family": "iconfont",
+  "css_prefix_text": "el-icon-ali",
+  "description": "扩展icon",
+  "glyphs": [
+    {
+      "icon_id": "10156392",
+      "name": "邮箱",
+      "font_class": "youxiang1",
+      "unicode": "e654",
+      "unicode_decimal": 58964
+    },
+    {
+      "icon_id": "4937000",
+      "name": "github-fill",
+      "font_class": "github-fill",
+      "unicode": "e885",
+      "unicode_decimal": 59525
+    }
+  ]
+}
